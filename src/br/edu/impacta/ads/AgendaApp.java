@@ -7,8 +7,9 @@ import java.util.Scanner;
 public class AgendaApp {
 
 	private static Scanner entrada = new Scanner(System.in);
-	private static List<Contato> contatos = new ArrayList<>();
-
+	//private static List<Contato> contatos = new ArrayList<>();
+	private static IContatoDAO dao = new ContatoDAO();
+	
 	public static void main(String[] args) {
 		boolean sair = false;
 		while (!sair) {
@@ -32,12 +33,13 @@ public class AgendaApp {
 
 		System.out.println("\nBUSCA DE CONTATO");
 		String nome = lerNome();
-		List<Contato> resultado = new ArrayList<>();
-		for (Contato c : contatos) {
-			if (nome.equals(c.getNome())) {
-				resultado.add(c);
-			}
-		}
+//		List<Contato> resultado = new ArrayList<>();
+//		for (Contato c : contatos) {
+//			if (nome.equals(c.getNome())) {
+//				resultado.add(c);
+//			}
+//		}
+		List<Contato> resultado = dao.buscar(nome);
 		if (resultado.size() == 0) {
 			System.out.println("Não há contato com este nome!");
 		} else {
@@ -55,10 +57,12 @@ public class AgendaApp {
 		String nome = lerNome();
 		String telefone = lerTelefone();
 		Contato c = new Contato(nome, telefone);
-		if (contatos.contains(c)) {
+		//if (contatos.contains(c)) {
+		if (dao.existe(c)) {
 			System.out.println("Este contato já está cadastrado!");
 		} else {
-			contatos.add(c);
+			//contatos.add(c);
+			dao.inserir(c);
 			System.out.println("Contato inserido!");
 		}
 
