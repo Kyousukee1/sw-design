@@ -8,7 +8,7 @@ public class AgendaApp {
 
 	private static Scanner entrada = new Scanner(System.in);
 	//private static List<Contato> contatos = new ArrayList<>();
-	private static IContatoDAO dao = new ContatoDAO();
+	private static IContatoDAO dao = new ContatoDAOArquivo("contatos.txt");
 	
 	public static void main(String[] args) {
 		boolean sair = false;
